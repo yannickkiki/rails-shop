@@ -1,0 +1,23 @@
+<h1>Products</h1>
+
+<div>
+  <% @products.each do |product| %>
+    <hr/>
+    <div>
+      <p><%= product.title %></p>
+      <p><%= product.price %> $</p>
+      <p><%= product.description %></p>
+      <img src="<%= product.image_url %>">
+      <p>Available: <%= product.quantity %></p>
+
+      <%= form_with url: cart_path, method: :post do |form| %>
+        <%= form.hidden_field :product_id, value: product.title %>
+        <%= form.label :quantity %><br>
+        <%= form.number_field :quantity %>
+        <%= form.submit "Add to cart" %>
+      <% end %>
+      <a href="<%= cart_path %>">View cart</a>
+
+    </div>
+  <% end %>
+</div>
